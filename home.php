@@ -19,7 +19,7 @@
         <div class="container">
             <div class="mt-2 d-flex flex-row">
                 <h3 class="mt-2" id="menu">ยาของฉัน</h3>
-                <img src="img/profile.jpg" id="logout" width="50px;" class="img-fluid d-block ml-auto shadow shadow-sm" style="border : 2 px solid ; border-radius : 50px;" alt="">
+                <img src="img/profile.jpg" id="profile" width="50px;" class="img-fluid d-block ml-auto shadow shadow-sm" style="border : 2 px solid ; border-radius : 50px;" alt="">
 
             </div>
         </div>
@@ -68,12 +68,17 @@
     </div>
     <!--Settings-->
     <div class="container-fluid mt-3" id="setting" style="display : none">
-       <h4>ตั้งค่า</h4>
-       <div class="d-flex flex-column">
-          <img src="img/profile.jpg" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
-               <h4 class="text-center">ชื่อ : ศรชัย สมสกุล</h4>
-           
-       </div>
+        <div>
+            <button id="close" class="btn btn-dark d-block ml-auto" style="border : 2px solid transparent; border-radius : 100px;">&times</button>
+        </div>
+        <div class="d-flex flex-column">
+            <img src="img/profile.jpg" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
+            <h4 class="text-center mt-4 mb-3">ชื่อ : ศรชัย สมสกุล</h4>
+            <button class="btn btn-primary">QRcode ของฉัน <i class="fas fa-qrcode"></i></button>
+            <button class="btn btn-secondary mt-2">ตั้งค่า</button>
+            <button class="btn btn-secondary mt-2">สอบถามเพิ่มเติม</button>
+            <button class="btn btn-danger mt-2" id="logout">ออกจากระบบ</button>
+        </div>
     </div>
 
 
@@ -85,22 +90,30 @@
     <script>
         $(document).ready(function() {
 
-            $('#logout').click(function() {
+            $('#profile').click(function() {
                 $('#setting').show()
                 $('#main').hide()
-                // Swal.fire({
-                //     title: 'ออกจากระบบ',
-                //     icon: 'warning',
-                //     showCancelButton: true,
-                //     confirmButtonColor: '#3085d6',
-                //     cancelButtonColor: '#d33',
-                //     confirmButtonText: 'ออกจากระบบ'
-                // }).then((result) => {
-                //     if (result.value) {
-                //         window.location.href = "index.php"
+            });
 
-                //     }
-                // })
+            $('#close').click(function() {
+                $('#setting').hide()
+                $('#main').show()
+            });
+
+            $('#logout').click(function() {
+                Swal.fire({
+                    title: 'ออกจากระบบ',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'ออกจากระบบ'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = "index.php"
+
+                    }
+                })
 
             });
 
