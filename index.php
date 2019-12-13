@@ -3,8 +3,14 @@ require "db/connect.php";
 if (isset($_GET['qr'])) {
     $qr_id = $_GET['qr'];
     $users = $conn->query("SELECT * FROM Users WHERE qr_id = $qr_id")->fetch_assoc();
-    $user = $users['username'];
-    $profile_img = $users['profile_image'];
+    if(!$users){
+        $user = "ไม่พบผู้ใช้";
+        $profile_img = "img/no_user.png";    
+    }else {
+        $user = $users['user_name'];
+        $profile_img = $users['profile_img'];
+    }
+    
 } else {
     $user = "ไม่พบผู้ใช้";
     $profile_img = "img/no_user.png";
@@ -19,6 +25,7 @@ if (isset($_GET['qr'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Doctor Assistant</title>
 </head>
@@ -26,7 +33,7 @@ if (isset($_GET['qr'])) {
 <body>
     <div class="container">
 
-        <div class="card mx-auto shadow" style="width : 30rem; margin-top : 25vh;">
+        <div class="card mx-auto shadow" style="width : 20rem; margin-top : 10vh">
 
             <div class="card-body">
                 <marquee behavior="" direction="" class="mb-3">🚑ประกาศ: ระบบปิดปรับปรุงตั้งแต่ 8 ธันวาคม - 11 ธันวาคม พ.ศ.2562💨💨</marquee>
@@ -39,9 +46,9 @@ if (isset($_GET['qr'])) {
                         <form action="" class="m-3" id="idcard">
                             <div class="form-group">
                                 <label for="id_card">ป้อนเลขประจำตัว 13 หลัก</label>
-                                <input type="text" name="qr" id="id_card" class="form-control">
+                                <input type="text" id="id_card" class="form-control">
                                 <div id="validate"></div>
-                                <input type="button" id="login" class="btn mx-auto d-block mt-3" value="เข้าสู่ระบบ">
+                                <input type="submit" id="login" class="btn d-block mx-auto mt-3" value="เข้าสู่ระบบ">
                             </div>
 
                         </form>
@@ -58,20 +65,18 @@ if (isset($_GET['qr'])) {
 
     <script src=" node_modules/jquery/dist/jquery.min.js"> </script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script>
-        $('#login').click(function(e) {
-            e.preventDefault
-            if (!$.isNumeric($('#id_card').val())) {
-                var id_card = $('#id_card').val()
-
-                $('#validate').load('db/validate.php', {
-                    card_num: id_card
-                })
-            }
-
-
-
+        
+        $('#idcard').submit(function(e){
+            e.preventDefault();
+            id_num = $('#id_card').val()
+            qrcode = '<?php echo $_GET['qr']?>'
+            $('#validate').load('db/validate.php' , {id_card : id_num , qrcode : qrcode})
+           
         });
+           
+       
     </script>
 </body>
 

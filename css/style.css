@@ -7,9 +7,10 @@
 /*Login Btn*/
 #login {
 border: 2px solid #BADA55; 
-border-radius : 100px; 
-padding-left: 100px; 
-padding-right : 100px; 
+border-radius : 50px; 
+padding-left: 50px; 
+padding-right : 50px; 
 padding-top : 10px;
 padding-bottom : 10px 
+
 }
