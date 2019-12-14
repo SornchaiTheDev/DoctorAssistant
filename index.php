@@ -1,7 +1,11 @@
 <?php
+session_start();
+
 require "db/connect.php";
 if (isset($_GET['qr'])) {
+  
     $qr_id = $_GET['qr'];
+    $_SESSION['qr'] = $_GET['qr'];
     $users = $conn->query("SELECT * FROM Users WHERE qr_id = $qr_id")->fetch_assoc();
     if(!$users){
         $user = "ไม่พบผู้ใช้";

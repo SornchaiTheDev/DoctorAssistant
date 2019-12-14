@@ -66,20 +66,39 @@
             </div>
         </div>
     </div>
-    <!--Settings-->
-    <div class="container-fluid mt-3" id="setting" style="display : none">
+
+    <!--Profile-->
+    <div class="container-fluid mt-3" id="profile-page" style="display : none">
         <div>
             <button id="close" class="btn btn-dark d-block ml-auto" style="border : 2px solid transparent; border-radius : 100px;">&times</button>
         </div>
         <div class="d-flex flex-column">
+            <!--Profile_Img-->
             <img src="img/profile.jpg" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
-            <h4 class="text-center mt-4 mb-3">ชื่อ : ศรชัย สมสกุล</h4>
+            <form action="db/pro_img.php"  method="POST" enctype="multipart/form-data">
+                <input type="file" name="pro_img" id="">
+                <input type="submit" value="test">
+            </form>
+            <h4 class="text-center mt-2 mb-5">ชื่อ : ศรชัย สมสกุล</h4>
+            <div id="status" style="position : fixed; top:275px;"></div>
+            <div id="form" class="">
+                <form action="" id="change">
+                    <label for="telephone">เบอร์โทรศัพท์</label>
+                    <input type="number" id="tel" class="form-control" value="0966353408">
+                    <label for="telephone" class="mt-1">ที่อยู่</label>
+                    <input type="text" id="home" class="form-control" value="98/43 หมู่บ้านเสริมทรัพย์ ถนนวิรัชหงษ์หยก ตำบลวิชิต อำเภอเมือง จังหวัดถูเก็ต">
+                    <input id="submit" type="submit" class="btn btn-success mb-3 d-block mx-auto mt-2" value="บันทึกข้อมูล">
+                </form>
+            </div>
+
             <button class="btn btn-primary">QRcode ของฉัน <i class="fas fa-qrcode"></i></button>
-            <button class="btn btn-secondary mt-2">ตั้งค่า</button>
             <button class="btn btn-secondary mt-2">สอบถามเพิ่มเติม</button>
             <button class="btn btn-danger mt-2" id="logout">ออกจากระบบ</button>
+
         </div>
     </div>
+
+
 
 
     <script src=" node_modules/jquery/dist/jquery.min.js"> </script>
@@ -91,13 +110,31 @@
         $(document).ready(function() {
 
             $('#profile').click(function() {
-                $('#setting').show()
+                $('#profile-page').fadeIn('slow')
                 $('#main').hide()
             });
 
             $('#close').click(function() {
-                $('#setting').hide()
+                $('#profile-page').hide()
                 $('#main').show()
+            });
+
+            $('#change').submit(function(e) {
+                e.preventDefault();
+                tel = $('#tel').val()
+                home = $('#home').val()
+
+
+                $('#status').load('db/edit_info.php', {
+                    telephone: tel,
+                    home: home
+                })
+                $('#status').delay(1000).fadeOut('slow')
+                $('#status').val('')
+                $('#status').show()
+
+
+
             });
 
             $('#logout').click(function() {
