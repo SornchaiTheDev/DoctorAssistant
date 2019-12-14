@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+require "db/connect.php";
+
+$qr = $_SESSION['qr'];
+$fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +31,7 @@
         <div class="container">
             <div class="mt-2 d-flex flex-row">
                 <h3 class="mt-2" id="menu">ยาของฉัน</h3>
-                <img src="img/profile.jpg" id="profile" width="50px;" class="img-fluid d-block ml-auto shadow shadow-sm" style="border : 2 px solid ; border-radius : 50px;" alt="">
+                <img src="<?php echo $fetch['profile_img'] ?>" id="profile" width="50px;" class="img-fluid d-block ml-auto shadow shadow-sm" style="border : 2 px solid ; border-radius : 50px;" alt="">
 
             </div>
         </div>
@@ -28,11 +40,11 @@
         <div class="container mt-5" id="all-pill">
             <div class="row">
                 <div class="col-12 d-flex flex-row mb-3">
-                    <img src="img/profile.jpg" width="105px" alt="">
+                    <img src="<?php echo $fetch['profile_img'] ?>" width="105px" alt="">
                     <h5 class="ml-3 mt-5">Abacavir (อะบาคาเวียร์)</h5>
                 </div>
                 <div class="col-12 d-flex flex-row mb-3">
-                    <img src="img/profile.jpg" width="105px" alt="">
+                    <img src="<?php echo $fetch['profile_img'] ?>" width="105px" alt="">
                     <h5 class="ml-3 mt-5">Benzoyl Peroxide (เบนโซอิลเพอร์ออกไซด์)</h5>
                 </div>
 
@@ -57,9 +69,12 @@
                         <i class="fas fa-capsules d-block mx-auto" style="  font-size : 30px;color : grey"></i>
                         <p class="text-center mt-2" style="font-size : 12px;">ยาของฉัน</p>
                     </div>
-                    <div class="col-4 pt-2" id="calendar">
-                        <i class="far fa-calendar d-block mx-auto" style="font-size : 30px"></i>
-                        <p class="text-center mt-2" style="font-size : 12px;">ปฎิทิน</p>
+                    <div class="col-4 pt-2" id="notification">
+                        <div class="d-flex flex-row">
+                            <i class="fas fa-bell d-block mx-auto" style="font-size : 30px"></i>
+                            <span class="badge badge-danger" style="position : fixed ; left : 310px">99+</span>
+                        </div>
+                        <p class="text-center mt-2" style="font-size : 12px;">การแจ้งเตือน</p>
                     </div>
                 </div>
 
@@ -74,17 +89,17 @@
         </div>
         <div class="d-flex flex-column">
             <!--Profile_Img-->
-            <img src="img/profile.jpg" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
-            <form action="db/pro_img.php"  method="POST" enctype="multipart/form-data">
+            <img src="<?php echo $fetch['profile_img'] ?>" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
+            <!--<form enctype="multipart/form-data" id="profile" class="mt-3">
                 <input type="file" name="pro_img" id="">
-                <input type="submit" value="test">
             </form>
+            -->
             <h4 class="text-center mt-2 mb-5">ชื่อ : ศรชัย สมสกุล</h4>
             <div id="status" style="position : fixed; top:275px;"></div>
             <div id="form" class="">
                 <form action="" id="change">
                     <label for="telephone">เบอร์โทรศัพท์</label>
-                    <input type="number" id="tel" class="form-control" value="0966353408">
+                    <input type="text" id="tel" class="form-control" value="0966353408">
                     <label for="telephone" class="mt-1">ที่อยู่</label>
                     <input type="text" id="home" class="form-control" value="98/43 หมู่บ้านเสริมทรัพย์ ถนนวิรัชหงษ์หยก ตำบลวิชิต อำเภอเมือง จังหวัดถูเก็ต">
                     <input id="submit" type="submit" class="btn btn-success mb-3 d-block mx-auto mt-2" value="บันทึกข้อมูล">
@@ -98,6 +113,76 @@
         </div>
     </div>
 
+    <!--Pharmacy-->
+    <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
+        <div class="card mb-3" style="width: 20rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title">Lorem ipsum, dolor sit amet consectetur</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad molestias sequi assumenda, su</p>
+                    <a href="https://goo.gl/maps/4Ezk24sHmsjy35PFA" class="btn btn-warning">เส้นทาง</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Notification-->
+    <div class="container-fluid mt-5" id="noti-page" style="display : none; margin-bottom : 120px;">
+        <div class="card mb-3" style="height: 6rem;" id="no1">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="height: 6rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="height: 6rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="height: 6rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="height: 6rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="height: 6rem;">
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
+                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -105,123 +190,7 @@
     <script src="css/fontawesome/js/all.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-
-            $('#profile').click(function() {
-                $('#profile-page').fadeIn('slow')
-                $('#main').hide()
-            });
-
-            $('#close').click(function() {
-                $('#profile-page').hide()
-                $('#main').show()
-            });
-
-            $('#change').submit(function(e) {
-                e.preventDefault();
-                tel = $('#tel').val()
-                home = $('#home').val()
-
-
-                $('#status').load('db/edit_info.php', {
-                    telephone: tel,
-                    home: home
-                })
-                $('#status').delay(1000).fadeOut('slow')
-                $('#status').val('')
-                $('#status').show()
-
-
-
-            });
-
-            $('#logout').click(function() {
-                Swal.fire({
-                    title: 'ออกจากระบบ',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'ออกจากระบบ'
-                }).then((result) => {
-                    if (result.value) {
-                        window.location.href = "index.php"
-
-                    }
-                })
-
-            });
-
-
-
-            $('#all-pill').show()
-            $('#pill').css({
-                'background-color': 'gold',
-                'border': '2px solid transparent',
-                'border-radius': '50px'
-            })
-            $('#map').click(function() {
-                $('#all-pill').hide()
-                $('#menu').text("ร้านยาใกล้ฉัน")
-                $('#pill').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#calendar').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#map').css({
-                    'background-color': 'gold',
-                    'border': '2px solid transparent',
-                    'border-radius': '50px'
-                })
-            });
-            $('#pill').click(function() {
-                $('#all-pill').show()
-                $('#menu').text("ยาของฉัน")
-                $('#map').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#calendar').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#pill').css({
-                    'background-color': 'gold',
-                    'border': '2px solid transparent',
-                    'border-radius': '50px'
-                })
-            });
-            $('#calendar').click(function() {
-                $('#all-pill').hide()
-                $('#menu').text("ปฎิทิน")
-                $('#pill').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#map').css({
-                    'background-color': '',
-                    'border': '',
-                    'border-radius': ''
-                })
-                $('#calendar').css({
-                    'background-color': 'gold',
-                    'border': '2px solid transparent',
-                    'border-radius': '50px'
-                })
-            });
-
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
