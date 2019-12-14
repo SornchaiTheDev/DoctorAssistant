@@ -183,6 +183,7 @@ $fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
         </div>
     </div>
 
+   
 
 
 

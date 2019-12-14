@@ -1,16 +1,18 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('#profile').click(function() {
+    /* Menu */
+    $('#profile').click(function () {
         $('#profile-page').fadeIn('slow')
         $('#main').hide()
     });
 
-    $('#close').click(function() {
+    $('#close').click(function () {
         $('#profile-page').hide()
         $('#main').show()
     });
 
-    $('#change').submit(function(e) {
+    /*Change Info*/
+    $('#change').submit(function (e) {
         e.preventDefault();
         tel = $('#tel').val()
         home = $('#home').val()
@@ -28,9 +30,9 @@ $(document).ready(function() {
 
 
 
+    /*Logout*/
 
-
-    $('#logout').click(function() {
+    $('#logout').click(function () {
         Swal.fire({
             title: 'ออกจากระบบ',
             icon: 'warning',
@@ -50,12 +52,16 @@ $(document).ready(function() {
 
 
     $('#all-pill').show()
+
     $('#pill').css({
         'background-color': 'gold',
         'border': '2px solid transparent',
         'border-radius': '50px'
     })
-    $('#map').click(function() {
+
+    /*Map Tab */
+
+    $('#map').click(function () {
         $('#all-pill').hide()
         $('#map-page').show()
         $('#noti-page').hide()
@@ -76,7 +82,10 @@ $(document).ready(function() {
             'border-radius': '50px'
         })
     });
-    $('#pill').click(function() {
+
+    /*Pill Tab*/
+
+    $('#pill').click(function () {
         $('#all-pill').show()
         $('#map-page').hide()
         $('#noti-page').hide()
@@ -97,7 +106,10 @@ $(document).ready(function() {
             'border-radius': '50px'
         })
     });
-    $('#notification').click(function() {
+
+    /*Notification Tab */
+
+    $('#notification').click(function () {
         $('#all-pill').hide()
         $('#map-page').hide()
         $('#noti-page').show()
@@ -119,4 +131,12 @@ $(document).ready(function() {
         })
     });
 
+    $('#no1').click(function () {
+        Swal.fire({
+            title: 'หมอนัด 1 ธันวาคม',
+            text: 'รายละเอียด :',
+            icon: 'info',
+            confirmButtonText: 'ปิด'
+        })
+    });
 });
