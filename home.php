@@ -4,7 +4,7 @@ session_start();
 require "db/connect.php";
 
 $qr = $_SESSION['qr'];
-$fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
+$fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
 
 
 
@@ -72,7 +72,7 @@ $fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
                     <div class="col-4 pt-2" id="notification">
                         <div class="d-flex flex-row">
                             <i class="fas fa-bell d-block mx-auto" style="font-size : 30px"></i>
-                            <span class="badge badge-danger" style="position : fixed ; left : 310px">99+</span>
+                            <span class="badge badge-danger" id="noti_count" style="position : fixed ; left : 350px"></span>
                         </div>
                         <p class="text-center mt-2" style="font-size : 12px;">การแจ้งเตือน</p>
                     </div>
@@ -80,6 +80,16 @@ $fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
 
             </div>
         </div>
+        <!--Pharmacy-->
+        <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
+            <div id="map_show"></div>
+        </div>
+
+        <!--Notification-->
+        <div class="container-fluid mt-3">
+            <div id="noti-page" style="display : none;" class="mt-5"></div>
+        </div>
+
     </div>
 
     <!--Profile-->
@@ -113,77 +123,8 @@ $fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
         </div>
     </div>
 
-    <!--Pharmacy-->
-    <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
-        <div class="card mb-3" style="width: 20rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title">Lorem ipsum, dolor sit amet consectetur</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad molestias sequi assumenda, su</p>
-                    <a href="https://goo.gl/maps/4Ezk24sHmsjy35PFA" class="btn btn-warning">เส้นทาง</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!--Notification-->
-    <div class="container-fluid mt-5" id="noti-page" style="display : none; margin-bottom : 120px;">
-        <div class="card mb-3" style="height: 6rem;" id="no1">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
 
-        <div class="card mb-3" style="height: 6rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3" style="height: 6rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3" style="height: 6rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3" style="height: 6rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3" style="height: 6rem;">
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <h5 class="card-title"><b>หมอนัด 1 ธันวาคม </b></h5>
-                    <p class="card-text">แตะเพื่อแสดงเพิ่มเติม</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   
 
 
 
@@ -192,6 +133,23 @@ $fetch = $conn->query("SELECT * FROM users WHERE qr_id = $qr")->fetch_assoc();
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        /*Notification */
+        $(document).ready(function() {
+            reload();
+        });
+
+        function reload() {
+            setTimeout(() => {
+                $('#noti-page').load("db/notification.php");
+                $('#map_show').load("db/map.php");
+                reload()
+            }, 1000);
+
+
+        }
+    </script>
 </body>
 
 </html>

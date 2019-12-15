@@ -130,13 +130,6 @@ $(document).ready(function () {
             'border-radius': '50px'
         })
     });
-
-    $('#no1').click(function () {
-        Swal.fire({
-            title: 'หมอนัด 1 ธันวาคม',
-            text: 'รายละเอียด :',
-            icon: 'info',
-            confirmButtonText: 'ปิด'
-        })
-    });
 });
+
+
