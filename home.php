@@ -2,11 +2,13 @@
 session_start();
 
 require "db/connect.php";
-
+if (!isset($_SESSION['qr'])) {
+    header("Location:index.php");
+}
 $qr = $_SESSION['qr'];
 $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
-
-
+$info = $conn->query("SELECT * FROM info WHERE qr_id = $qr")->fetch_assoc();
+$max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
 
 ?>
 
@@ -36,26 +38,7 @@ $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
             </div>
         </div>
 
-        <!--Pill-->
-        <div class="container mt-5" id="all-pill">
-            <div class="row">
-                <div class="col-12 d-flex flex-row mb-3">
-                    <img src="<?php echo $fetch['profile_img'] ?>" width="105px" alt="">
-                    <h5 class="ml-3 mt-5">Abacavir (อะบาคาเวียร์)</h5>
-                </div>
-                <div class="col-12 d-flex flex-row mb-3">
-                    <img src="<?php echo $fetch['profile_img'] ?>" width="105px" alt="">
-                    <h5 class="ml-3 mt-5">Benzoyl Peroxide (เบนโซอิลเพอร์ออกไซด์)</h5>
-                </div>
 
-                <div class="col-12 d-flex flex-row" style="margin-bottom : 100px;">
-                    <button class="btn btn-warning mx-auto">แสกนยาเพิ่มเติม <i class="fas fa-qrcode"></i></button>
-                </div>
-
-
-
-            </div>
-        </div>
 
         <!--NavBar-->
         <div class="fixed-bottom bg-light shadow shadow-lg">
@@ -72,13 +55,17 @@ $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
                     <div class="col-4 pt-2" id="notification">
                         <div class="d-flex flex-row">
                             <i class="fas fa-bell d-block mx-auto" style="font-size : 30px"></i>
-                            <span class="badge badge-danger" id="noti_count" style="position : fixed ; left : 350px"></span>
+                            <span class="badge badge-danger" id="noti_count" style="position : absolute ; left : 60px"></span>
                         </div>
                         <p class="text-center mt-2" style="font-size : 12px;">การแจ้งเตือน</p>
                     </div>
                 </div>
 
             </div>
+        </div>
+
+        <!--Pill-->
+        <div class="container mt-5" id="all-pill">
         </div>
         <!--Pharmacy-->
         <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
@@ -104,14 +91,14 @@ $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
                 <input type="file" name="pro_img" id="">
             </form>
             -->
-            <h4 class="text-center mt-2 mb-5">ชื่อ : ศรชัย สมสกุล</h4>
+            <h4 class="text-center mt-2 mb-5">ชื่อ : <?php echo $fetch['user_name'] ?></h4>
             <div id="status" style="position : fixed; top:275px;"></div>
             <div id="form" class="">
                 <form action="" id="change">
                     <label for="telephone">เบอร์โทรศัพท์</label>
-                    <input type="text" id="tel" class="form-control" value="0966353408">
+                    <input type="text" id="tel" class="form-control" value="0<?php echo $info['telephone'] ?>">
                     <label for="telephone" class="mt-1">ที่อยู่</label>
-                    <input type="text" id="home" class="form-control" value="98/43 หมู่บ้านเสริมทรัพย์ ถนนวิรัชหงษ์หยก ตำบลวิชิต อำเภอเมือง จังหวัดถูเก็ต">
+                    <input type="text" id="home" class="form-control" value="<?php echo $info['home'] ?>">
                     <input id="submit" type="submit" class="btn btn-success mb-3 d-block mx-auto mt-2" value="บันทึกข้อมูล">
                 </form>
             </div>
@@ -144,6 +131,7 @@ $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = $qr")->fetch_assoc();
             setTimeout(() => {
                 $('#noti-page').load("db/notification.php");
                 $('#map_show').load("db/map.php");
+                $('#all-pill').load('db/pill.php')
                 reload()
             }, 1000);
 

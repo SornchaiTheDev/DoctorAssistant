@@ -12,11 +12,12 @@ while ($row = mysqli_fetch_array($map)) {
     echo '
    
         <div class="card mb-3" style="width: 20rem;">
+        <img src="db/user_pic/123456789.jpg" class="img-fluid">
         <div class="card-body">
             <div class="d-flex flex-column">
-                <h5 class="card-title">' . $row["shop_name"] . '</h5>
-                <p class="card-text">' . $row["adress"] . '</p>
-                <a href="' . $row["location"] . '" class="btn btn-warning">เส้นทาง</a>
+                <h5 class="card-title">ยาพารา</h5>
+                <p class="card-text">รายละเอียด</p>
+                <button class="btn btn-success">ข้อมูลเพิ่มเติม</button>
             </div>
         </div>
     </div>';
@@ -26,13 +27,3 @@ while ($row = mysqli_fetch_array($map)) {
     }
     $i++;
 }
-
-
-if ($max[0] == 0) { 
-    echo "
-    <div style='margin-top : 125px;margin-bottom : 100px; '>
-    <p class='text-center'>ไม่พบร้านยาใกล้ๆ</p>
-    <i class='fas fa-map-signs  d-block mx-auto' style='font-size : 250px'></i>
-    </div>
-    ";
-} 

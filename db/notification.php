@@ -5,9 +5,15 @@ $qr = $_SESSION['qr'];
 require "connect.php";
 
 $noti = $conn->query("SELECT * FROM Notification WHERE qr_id = $qr");
-$i = 1;
+$max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification WHERE qr_id = $qr"));
 
+
+
+$i = 1;
 while ($row = mysqli_fetch_array($noti)) {
+
+
+
     echo '
    
         <div class="card mb-3 mt-2" style="height: 6rem;" id="' . $i . '">
@@ -21,6 +27,7 @@ while ($row = mysqli_fetch_array($noti)) {
     <script>
     noti_count = ' . $i . '
     $("#noti_count").text(' . $i . ')
+    
     $("#' . $i . '").click(function () {
         Swal.fire({
             title: "' . $row["notification"] . '",
@@ -30,5 +37,19 @@ while ($row = mysqli_fetch_array($noti)) {
           })
     });
     </script>';
+    if ($row['id'] ==  $max[0]) {
+        echo "<div style='margin-top : 10px;margin-bottom : 100px; '><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
+    }
+
     $i++;
 }
+
+if ($max[0] == 0) { 
+    echo "
+    <div style='margin-top : 125px;margin-bottom : 100px; '>
+    <p class='text-center'>ไม่มีการแจ้งเตือน</p>
+    <i class='fas fa-inbox  d-block mx-auto' style='font-size : 250px'></i>
+    </div>
+    <script>$('#noti_count').text(0)</script>
+    ";
+} 

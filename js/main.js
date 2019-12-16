@@ -1,9 +1,11 @@
 $(document).ready(function () {
-
+    var windowsize = $(window).width();
+    
     /* Menu */
     $('#profile').click(function () {
         $('#profile-page').fadeIn('slow')
         $('#main').hide()
+        
     });
 
     $('#close').click(function () {
@@ -52,6 +54,7 @@ $(document).ready(function () {
 
 
     $('#all-pill').show()
+    $('#all-pill').load('db/pill.php')
 
     $('#pill').css({
         'background-color': 'gold',
@@ -81,6 +84,9 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
+        if(windowsize > 350){
+            $("html, body").animate({scrollTop: 0}, 100);
+        }
     });
 
     /*Pill Tab*/
@@ -105,6 +111,9 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
+       if(windowsize > 350){
+        $("html, body").animate({scrollTop: 0}, 100);
+    }
     });
 
     /*Notification Tab */
@@ -129,6 +138,9 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
+       if(windowsize > 350){
+        $("html, body").animate({scrollTop: 0}, 100);
+    }
     });
 });
 
