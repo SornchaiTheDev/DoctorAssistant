@@ -69,6 +69,7 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
         <!--Pill-->
         <div class="container mt-5" id="all-pill">
         </div>
+        <button class='btn btn-warning d-block mx-auto' onclick='window.location.href = "qr_code.php"' style="margin-bottom : 100px;">แสกนQR Code เพิ่มเติม <i class="fas fa-qrcode"></i></button>
         <!--Pharmacy-->
         <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
             <div id="map_show"></div>

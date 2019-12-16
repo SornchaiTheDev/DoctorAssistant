@@ -142,7 +142,9 @@ $(document).ready(function () {
         $("html, body").animate({scrollTop: 0}, 500);
     }
     });
-
+        $('#qr-code').click(function(){
+            window.location.href = "qr_code.php"
+        });
     
 });
 

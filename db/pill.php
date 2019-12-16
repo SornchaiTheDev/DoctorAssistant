@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_array($pill)) {
     ';
     
     if ($row['id'] ==  $max[0]) {
-        echo "<div style='margin-top : 10px;margin-bottom : 100px; '><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
+        echo "<div style='margin-top : 10px;'><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
     }
     $info++;
     $time++;
