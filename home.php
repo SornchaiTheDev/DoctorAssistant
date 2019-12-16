@@ -28,6 +28,8 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
 
 <body>
 
+
+
     <div id="main">
         <!--Top Menu-->
         <div class="container">

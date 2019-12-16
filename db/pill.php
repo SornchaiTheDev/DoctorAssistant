@@ -4,26 +4,73 @@ session_start();
 $qr = $_SESSION['qr'];
 require "connect.php";
 
-$map = $conn->query("SELECT * FROM Map");
-$max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM Map"));
-$i = 1;
+$pill = $conn->query("SELECT * FROM pill");
+$max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM pill"));
+$info = 'A';
+$time = 'AA';
 
-while ($row = mysqli_fetch_array($map)) {
+while ($row = mysqli_fetch_array($pill)) {
+   
     echo '
    
         <div class="card mb-3" style="width: 20rem;">
-        <img src="db/user_pic/123456789.jpg" class="img-fluid">
+        <img src="asset/med_icon.png" class="img-fluid">
         <div class="card-body">
             <div class="d-flex flex-column">
-                <h5 class="card-title">ยาพารา</h5>
-                <p class="card-text">รายละเอียด</p>
-                <button class="btn btn-success">ข้อมูลเพิ่มเติม</button>
+                <h5 class="card-title">'.$row['pill_name'].'</h5>
+                <p class="card-text" id="detail"></p>
+                <div class="d-flex flex-row">
+                <button class="btn btn-success ml-3" style="
+                border: 2px solid transparent; 
+                border-radius : 50px; 
+                padding-left: 10px; 
+                padding-right : 10px; 
+                padding-top : 10px;
+                padding-bottom : 10px 
+                " id="'.$info.'">ข้อมูลเพิ่มเติม</button>
+                <button class="btn btn-warning ml-4" id="'.$time.'" style="
+                border: 2px solid transparent; 
+                border-radius : 50px; 
+                padding-left: 10px; 
+                padding-right : 10px; 
+                padding-top : 10px;
+                padding-bottom : 10px 
+                ">วิธีการทาน</button>
+                </div>
             </div>
         </div>
-    </div>';
+    </div>
+    <script>
+    var time = "'.$time.'"
+    var detail = "'.$row['detail'].'"
+    var thuc = "'.$row['detail'].'".substr(0,60)
+    $("#detail").text("รายละเอียด : " + thuc + "...")
 
+    $("#'.$info.'").click(function(){
+        Swal.fire({
+            title: "รายละเอียด",
+            text: detail,
+            icon: "info",
+            confirmButtonText: "ปิด",
+          })
+    })
+
+    $("#'.$time.'").click(function(){
+        Swal.fire({
+            title: "วิธีการทาน",
+            text: "'.$row['time'].'",
+            icon: "info",
+            confirmButtonText: "ปิด",
+          })
+    })
+    </script>
+    ';
+    
     if ($row['id'] ==  $max[0]) {
         echo "<div style='margin-top : 10px;margin-bottom : 100px; '><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
     }
-    $i++;
+    $info++;
+    $time++;
+   
+    
 }

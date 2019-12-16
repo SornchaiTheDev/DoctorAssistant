@@ -85,7 +85,7 @@ $(document).ready(function () {
             'border-radius': '50px'
         })
         if(windowsize > 350){
-            $("html, body").animate({scrollTop: 0}, 100);
+            $("html, body").animate({scrollTop: 0}, 500);
         }
     });
 
@@ -112,7 +112,7 @@ $(document).ready(function () {
             'border-radius': '50px'
         })
        if(windowsize > 350){
-        $("html, body").animate({scrollTop: 0}, 100);
+        $("html, body").animate({scrollTop: 0}, 500);
     }
     });
 
@@ -139,9 +139,11 @@ $(document).ready(function () {
             'border-radius': '50px'
         })
        if(windowsize > 350){
-        $("html, body").animate({scrollTop: 0}, 100);
+        $("html, body").animate({scrollTop: 0}, 500);
     }
     });
+
+    
 });
 
 
