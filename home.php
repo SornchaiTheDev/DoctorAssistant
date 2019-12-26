@@ -67,9 +67,8 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
         </div>
 
         <!--Pill-->
-        <div class="container mt-5" id="all-pill">
+        <div class="container mt-3 mb-3" id="all-pill">
         </div>
-        <button class='btn btn-warning d-block mx-auto' onclick='window.location.href = "qr_code.php"' style="margin-bottom : 100px;">แสกนQR Code เพิ่มเติม <i class="fas fa-qrcode"></i></button>
         <!--Pharmacy-->
         <div class="container-fluid mt-5" id="map-page" style="display : none; margin-bottom : 120px;">
             <div id="map_show"></div>
@@ -90,10 +89,7 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
         <div class="d-flex flex-column">
             <!--Profile_Img-->
             <img src="<?php echo $fetch['profile_img'] ?>" width="200px" class="mx-auto" style="border : 2px solid transparent; border-radius : 100px;" alt="">
-            <!--<form enctype="multipart/form-data" id="profile" class="mt-3">
-                <input type="file" name="pro_img" id="">
-            </form>
-            -->
+
             <h4 class="text-center mt-2 mb-5">ชื่อ : <?php echo $fetch['user_name'] ?></h4>
             <div id="status" style="position : fixed; top:275px;"></div>
             <div id="form" class="">

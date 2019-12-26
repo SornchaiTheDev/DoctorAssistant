@@ -1,11 +1,11 @@
 $(document).ready(function () {
     var windowsize = $(window).width();
-    
+
     /* Menu */
     $('#profile').click(function () {
         $('#profile-page').fadeIn('slow')
         $('#main').hide()
-        
+
     });
 
     $('#close').click(function () {
@@ -84,8 +84,8 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
-        if(windowsize > 350){
-            $("html, body").animate({scrollTop: 0}, 500);
+        if (windowsize > 350) {
+            $("html, body").animate({ scrollTop: 0 }, 500);
         }
     });
 
@@ -95,6 +95,7 @@ $(document).ready(function () {
         $('#all-pill').show()
         $('#map-page').hide()
         $('#noti-page').hide()
+        //$('#qr_code').show()
         $('#menu').text("ยาของฉัน")
         $('#map').css({
             'background-color': '',
@@ -111,9 +112,9 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
-       if(windowsize > 350){
-        $("html, body").animate({scrollTop: 0}, 500);
-    }
+        if (windowsize > 350) {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+        }
     });
 
     /*Notification Tab */
@@ -138,14 +139,14 @@ $(document).ready(function () {
             'border': '2px solid transparent',
             'border-radius': '50px'
         })
-       if(windowsize > 350){
-        $("html, body").animate({scrollTop: 0}, 500);
-    }
+        if (windowsize > 350) {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+        }
     });
-        $('#qr-code').click(function(){
-            window.location.href = "qr_code.php"
-        });
-    
+    $('#qr-code').click(function () {
+        window.location.href = "qr_code.php"
+    });
+
 });
 
 

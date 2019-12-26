@@ -4,7 +4,7 @@ session_start();
 $qr = $_SESSION['qr'];
 require "connect.php";
 
-$noti = $conn->query("SELECT * FROM Notification WHERE qr_id = $qr");
+$noti = $conn->query("SELECT * FROM notification WHERE qr_id = $qr");
 $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification WHERE qr_id = $qr"));
 
 
@@ -44,7 +44,7 @@ while ($row = mysqli_fetch_array($noti)) {
     $i++;
 }
 
-if ($max[0] == 0) { 
+if ($max[0] == 0) {
     echo "
     <div style='margin-top : 125px;margin-bottom : 100px; '>
     <p class='text-center'>ไม่มีการแจ้งเตือน</p>
@@ -52,4 +52,4 @@ if ($max[0] == 0) {
     </div>
     <script>$('#noti_count').text(0)</script>
     ";
-} 
+}

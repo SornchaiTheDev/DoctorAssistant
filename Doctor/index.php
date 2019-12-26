@@ -20,8 +20,8 @@
 
         <div class="" style="border : 5px solid; border-radius : 50px">
             <h1 class="text-center" style="margin-top : 100px; margin-bottom : 100px">DoctorAssistant</h1>
-            <button class="btn btn-primary d-block mx-auto mb-4" style="font-size : 50px;">ประวัติผู้ป่วย</button>
-            <button class="btn btn-dark d-block mx-auto" style="font-size : 50px;">ลงทะเบียนผู้ป่วยใหม่</button>
+            <button class="btn btn-primary d-block mx-auto mb-4" style="font-size : 50px;" onclick="window.location.href='history/'">ประวัติผู้ป่วย</button>
+            <button class="btn btn-dark d-block mx-auto" style="font-size : 50px;" onclick="window.location.href='register/'">ลงทะเบียนผู้ป่วยใหม่</button>
             <div style="margin-top : 300px;">
             </div>
         </div>
