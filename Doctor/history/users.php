@@ -1,63 +1,32 @@
-<!--<button class='btn btn-warning' id='" . $edit . "'>แก้ไข</button>-->
+<div class="d-flex flex-column">
+    <?php
+    require "../../db/connect.php";
+    $fetch = $conn->query("SELECT * FROM Users");
+    $id = 'A';
 
-<div class="container mt-5">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">ลำดับที่</th>
-                <th scope="col">ชื่อผู้ป่วย</th>
-                <th scope="col">เลขบัตรประชาชน</th>
-                <th scope="col">จัดการ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            require "../../db/connect.php";
-            $fetch = $conn->query("SELECT * FROM Users");
-            $edit = 'A';
-            $del = "AA";
-            while ($row = mysqli_fetch_array($fetch)) {
+    while ($row = mysqli_fetch_array($fetch)) {
 
-                echo " <tr>
-        <th scope='row'>" . $row['id'] . "</th>
-        <td>" . $row['user_name'] . "</td>
-        <td>" . $row['qr_id'] . "</td>
-        <td><div class='d-flex flex-column'><button class='btn btn-danger mt-2' id='" . $del . "'>ลบ</button></div></td>
-    </tr>
-    <script>
-    $('#" . $del . "').click(function(){
-        Swal.fire({
-            title: 'ต้องการลบ ?',
-            text: 'test',
-            icon: 'info',
-            confirmButtonText: 'ลบ',
-            confirmButtonColor : 'gold',
-            cancelButtonText : 'ยกเลิก',
-            cancelButtonColor : 'skyblue',
-            showCancelButton : true,
-          }).then((result) => {
-            if(result.value){
-                $.ajax({
-                    url : 'delete.php',
-                    type : 'POST',
-                    data : {qr_id : " . $row['qr_id'] . "}
-                    
-                })
-                Swal.fire({
-                    title : 'เรียบร้อย',
-                    icon : 'success'
-                })
-                $('#users').load('users.php')
-            }
-        
-        })
-    })
-    </script>
-    ";
-                $edit++;
-                $del++;
-            }
-            ?>
-        </tbody>
-    </table>
+        echo " <div class='card mt-5' style='width : 30rem ; height : 10rem'>
+    <div class='card-body'>
+        <div class='d-flex flex-row'>
+            <img src='../../" . $row['profile_img'] . "' class='img-fluid' width='100' alt=''>
+            <div class='container ml-3'>
+                <h4>" . $row['user_name'] . "</h4>
+                <h5>ประเภทผู้ป่วย : ทั่วไป</h5>
+                <button class='btn btn-warning' id='" . $id . "'>เข้าสู่โปรไฟล์</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+$('#" . $id . "').click(function(){
+    window.location.href = 'detail.php?qr=" . $row['qr_id'] . "'
+})
+</script>
+";
+        $id++;
+    }
+    ?>
+
 </div>

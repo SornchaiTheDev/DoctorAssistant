@@ -7,7 +7,7 @@ if (isset($_GET['idcard'])) {
         $username = $_GET['name'];
         $home = $_GET['home'];
         $tel = $_GET['tel'];
-        $photo = "db/user_pic/123456789.jpg";
+        $photo = "db/user_pic/normal_user.png";
         $qr_id = rand();
         $result = $conn->query("SELECT * FROM Users WHERE id_card = '$id_card'")->fetch_assoc();
         if (!$result['id']) {

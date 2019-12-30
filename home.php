@@ -47,7 +47,7 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
             <div class="container">
                 <div class="row">
                     <div class="col-4 pt-2" id="map">
-                        <i class="fas fa-map-marker-alt d-block mx-auto" style="font-size : 30px; color : red"></i>
+                        <i class="fas fa-map-marker-alt d-block mx-auto" style="font-size : 30px;"></i>
                         <p class="text-center mt-2" style="font-size : 12px;">ร้านยาใกล้ฉัน</p>
                     </div>
                     <div class="col-4 pt-2" id="pill">

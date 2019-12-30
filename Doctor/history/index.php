@@ -16,7 +16,9 @@
     <div class="container mt-5">
         <button class="btn btn-primary" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
         <h3 class="text-center mt-4">รายชื่อผู้ป่วย</h3>
-        <div id='users'></div>
+
+        <div id='users' style="margin-left : 22vw"></div>
+
 
     </div>
 

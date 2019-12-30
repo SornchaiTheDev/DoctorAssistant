@@ -16,13 +16,13 @@
 
     <!--Welcome Message-->
     <div class="container mt-2">
-        <marquee behavior="" direction="">ประกาศ : Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ratione quo modi dicta maiores sapiente fugiat deleniti delectus officia, odio asperiores, quisquam nostrum, rerum hic aperiam porro consequuntur illo cum!</marquee>
+        <marquee behavior="" direction="">ประกาศ :</marquee>
 
         <div class="" style="border : 5px solid; border-radius : 50px">
             <h1 class="text-center" style="margin-top : 100px; margin-bottom : 100px">DoctorAssistant</h1>
             <button class="btn btn-primary d-block mx-auto mb-4" style="font-size : 50px;" onclick="window.location.href='history/'">ประวัติผู้ป่วย</button>
             <button class="btn btn-dark d-block mx-auto" style="font-size : 50px;" onclick="window.location.href='register/'">ลงทะเบียนผู้ป่วยใหม่</button>
-            <div style="margin-top : 300px;">
+            <div style="margin-top : 100px;">
             </div>
         </div>
 
