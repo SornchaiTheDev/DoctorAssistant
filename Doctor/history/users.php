@@ -1,15 +1,24 @@
 <div class="d-flex flex-column">
     <?php
     require "../../db/connect.php";
-    $fetch = $conn->query("SELECT * FROM Users");
+    if(isset($_POST['pages'])){
+        $pages = $_POST['pages'];
+    }
+    else{
+        $pages = 1;
+    }
+    $start = ($pages-1) * 3;
+
+    //$fetch = $conn->query("SELECT * FROM Users");
+    $fetch = $conn->query("SELECT * FROM users ORDER BY id ASC LIMIT $start , 3");
     $id = 'A';
 
     while ($row = mysqli_fetch_array($fetch)) {
 
-        echo " <div class='card mt-5' style='width : 30rem ; height : 10rem'>
+        echo " <div class='card mt-5  shadow shadow-lg' style='width : 50rem ; height : 10rem'>
     <div class='card-body'>
         <div class='d-flex flex-row'>
-            <img src='../../" . $row['profile_img'] . "' class='img-fluid' width='100' alt=''>
+            <img src='../../" . $row['profile_img'] . "' class='img-fluid' style='border : 2px transparent; border-radius : 100%;' width='100' alt=''>
             <div class='container ml-3'>
                 <h4>" . $row['user_name'] . "</h4>
                 <h5>ประเภทผู้ป่วย : ทั่วไป</h5>
@@ -30,3 +39,5 @@ $('#" . $id . "').click(function(){
     ?>
 
 </div>
+
+  

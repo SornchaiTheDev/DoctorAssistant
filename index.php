@@ -34,7 +34,7 @@ if (isset($_GET['qr'])) {
     <title>Doctor Assistant</title>
 </head>
 
-<body>
+<body  style="background : url('asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
     <div class="container">
 
         <div class="card mx-auto shadow" style="width : 20rem; margin-top : 10vh">

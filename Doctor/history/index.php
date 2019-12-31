@@ -12,14 +12,53 @@
     <script src="../../node_modules/jquery/dist/jquery.min.js"> </script>
 </head>
 
-<body>
+<body style="background : url('../../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
+
     <div class="container mt-5">
-        <button class="btn btn-primary" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
-        <h3 class="text-center mt-4">รายชื่อผู้ป่วย</h3>
+        <div class="shadow shadow-lg" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.2);">
+            <button class="btn btn-primary mt-5 ml-4" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
+            <h3 class="text-center mt-4">รายชื่อผู้ป่วย</h3>
+            <div class="d-flex flex-column">
+                <div id='users' class="mx-auto"></div>
+                <nav class="mx-auto mt-5 mb-2">
+                    <ul class="pagination" style="cursor : pointer">
 
-        <div id='users' style="margin-left : 22vw"></div>
+                        <?php
+                        require "../../db/connect.php";
+                        $count = mysqli_num_rows($conn->query("SELECT * FROM users"));
+                        $total = ceil($count / 3);
+
+                        for ($i = 1; $i <= $total; $i++) {
+                            /*Before*/
 
 
+                            echo '<li class="page-item"><a id="' . $i . '" class="page-link" >' . $i . '</a></li>';
+                            echo '<script>
+                $("#' . $i . '").click(function(){
+                
+                    $.ajax({
+                        url : "users.php",
+                        data : {pages : ' . $i . '},
+                        type : "POST",
+                        success : function(result){
+                            $("#users").html(result)
+                            
+                        },
+                        
+
+                    })
+                })
+                </script>';
+                        }
+                        ?>
+
+
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
     </div>
 
     <script>

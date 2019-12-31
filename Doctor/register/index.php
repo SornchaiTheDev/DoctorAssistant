@@ -1,35 +1,25 @@
 <?php
 $error = "";
 require "../../db/connect.php";
-if (isset($_GET['idcard'])) {
-    if (($_GET['idcard'] != '') && ($_GET['name'] != '') && ($_GET['home'] != '') && ($_GET['tel'] != '')) {
-        $id_card = $_GET['idcard'];
-        $username = $_GET['name'];
-        $home = $_GET['home'];
-        $tel = $_GET['tel'];
+if (isset($_POST['id_card'])) {
+    if (($_POST['id_card'] != '') && ($_POST['name'] != '') && ($_POST['home'] != '') && ($_POST['phone'] != '')) {
+        $id_card = $_POST['id_card'];
+        $username = $_POST['name'];
+        $home = $_POST['home'];
+        $tel = $_POST['phone'];
         $photo = "db/user_pic/normal_user.png";
         $qr_id = rand();
         $result = $conn->query("SELECT * FROM Users WHERE id_card = '$id_card'")->fetch_assoc();
         if (!$result['id']) {
-            $conn->query("INSERT INTO Users (user_name,profile_img,qr_id,id_card) VALUES ('$username','$photo','$qr_id','$id_card')");
+               //Upload Profile Pic 
+               $des = "../../db/user_pic/";
+               move_uploaded_file($_FILES['pic']['tmp_name'] , $des . $_FILES['pic']['name']);
+               $profile_pic = "db/user_pic/" . $_FILES['pic']['name'];
+            $conn->query("INSERT INTO Users (user_name,profile_img,qr_id,id_card) VALUES ('$username','$profile_pic','$qr_id','$id_card')");
             $conn->query("INSERT INTO info (home,telephone,qr_id) VALUES ('$home','$tel','$qr_id')");
 
-            /*
-            $pic = $_FILES['photo'];
-            $des = "user_pic/" . $qr_id . ".jpg";
-            $file_name = $_FILES['photo']['tmp_name'];
-            echo $_FILES['photo']['name'];
-            if (($_FILES['photo']['type'] == 'image/jpg') || ($_FILES['photo']['type'] == 'image/png') || ($_FILES['photo']['type'] == 'image/jpeg')) {
-                if ($_FILES['photo']['size'] < 500000) {
-                    move_uploaded_file($file_name, $des);
-                    $conn->query("UPDATE users SET profile_img = 'db/$des' WHERE qr_id = " . $_SESSION['qr'] . "   ");
-                } else {
-                    echo "ไฟล์ใหญ่เกินไป";
-                }
-            } else {
-                echo "รองรับเฉพาะไฟล์ jpg png jpeg";
-            }
-            */
+        
+           
 
             $status = "<p class='text-success'>สมัครสมาชิกเสร็จสิ้น</p>";
         } else {
@@ -41,8 +31,8 @@ if (isset($_GET['idcard'])) {
 } else {
     $status = "";
 }
-if (isset($_GET['error'])) {
-    if ($_GET['error'] == 'form') {
+if (isset($_POST['error'])) {
+    if ($_POST['error'] == 'form') {
         $status = "<p class='text-danger'>*กรอกข้อมูลให้ครบ</p>";
     }
 }
@@ -58,28 +48,28 @@ if (isset($_GET['error'])) {
     <link rel="stylesheet" href="../../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
     <title>DoctorAssistant</title>
+  
 </head>
 
-<body>
+<body style="background : url('../../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
 
-    <div class="container jumbotron">
+    <div class="container jumbotron shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.2);">
+
         <button class="btn btn-primary" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
-        <h1 class="text-center mt-4">ลงทะเบียนผู้ป่วยใหม่</h1>
-        <?php echo $status; ?>
+        <h1 class="text-center mt-4 text-white">ลงทะเบียนผู้ป่วยใหม่</h1>
+        <div id="status"><?php echo $status;?></div>
 
-        <form id="register" method="GET" class="form-group d-flex flex-column">
+        <form id="register" method="POST"  class="form-group d-flex flex-column" enctype="multipart/form-data">
             <label for="name" class="mt-2">ชื่อผู้ป่วย</label>
-            <input type="text" class="form-control mt-2" name="name" id="name">
+            <input type="text" class="form-control mt-2" style="border : 2px transparent; border-radius : 50px;" name="name" id="name" placeholder="กรอกชื่อผู้ป่วย" required>
             <label for="name" class="mt-2">เลขประจำตัวประชาชน</label>
-            <input type="text" class="form-control mt-2" name="idcard" id="idcard">
+            <input type="text" class="form-control mt-2" style="border : 2px transparent; border-radius : 50px;" name="id_card" id="idcard" placeholder="กรอกบัตรประชาชน" required>
             <label for="name" class="mt-2">ที่อยู่ผู้ป่วย</label>
-            <textarea row="3" class="form-control mt-2" name="home" id="home"></textarea>
+            <textarea row="3" class="form-control mt-2" name="home" id="home" placeholder="กรอกที่อยู่" required></textarea>
             <label for="tel" class="mt-2">เบอร์โทรผู้ป่วย</label>
-            <input type="text" class="mt-2 form-control" name="tel" id="tel">
-            <!--
+            <input type="text" class="mt-2 form-control" style="border : 2px transparent; border-radius : 50px;" name="phone" id="tel" placeholder="กรอกเบอร์โทร" required>
             <label for="photo" class="mt-2">รูปผู้ป่วย </label>
-            <input type="file" name="photo" id="photo">
-            -->
+            <input type="file" name="pic" id="photo">
             <button type="submit" class="btn btn-success mt-5">ลงทะเบียน</button>
         </form>
     </div>
@@ -87,6 +77,9 @@ if (isset($_GET['error'])) {
     <script src="../../css/fontawesome/js/all.min.js"></script>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script>
+    
+    </script>
 </body>
 
 </html>
