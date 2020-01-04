@@ -1,11 +1,3 @@
-<?php
-
-    require "../db/connect.php";
-    $users = $conn->query("SELECT max(id) FROM users")->fetch_array();
-    if($users[0] == ''){
-        $users = 0;
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,38 +9,55 @@
     <link rel="stylesheet" href="../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/font.css">
-    <title>Document</title>
+    <title>Login</title>
+    <style>
+        #center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 
-<body style="background : url('../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
+<body style="background : url('../asset/bg.png');">
 
+    <div id="center">
+        <div class="shadow shadow-lg" style="border : 2px transparent; border-radius : 50px; background-color : white; width : 350px;">
 
-    <!--Welcome Message-->
-    <div class="container" style="margin-top : 10vh">
-        <marquee behavior="" direction="">ประกาศ :</marquee>
-        <div class="shadow shadow-lg" style="border : 5px transparent; border-radius : 50px; height : 70vh; background-color : rgba(255,255,255, 0.5);">
-            <h1 class="text-center" style="padding-top : 150px;">DoctorAssistant</h1>
-            <button class="btn btn-primary d-block mx-auto mb-4" style="font-size : 50px;" onclick="window.location.href='history/'">ประวัติผู้ป่วย <span class="badge badge-light"><?php echo $users[0];?></span></button>
-            <button class="btn btn-success d-block mx-auto mb-4" style="font-size : 50px;" onclick="window.location.href='register/'">ลงทะเบียนผู้ป่วยใหม่</button>
-            
-
+            <div class="p-3">
+                <h3 class="text-center">ล็อคอิน</h3>
+                <div id="loading" class="text-center" style="display: none">
+                    <div class="spinner-grow text-success" role="status"></div>
+                </div>
+                <div id="status" class="text-center"></div>
+                <form id="login" class="form-group">
+                    <label for="username">ชื่อผู้ใช้</label>
+                    <input type="text" class="form-control mb-2" name="username" id="username">
+                    <label for="username">รหัสผ่าน</label>
+                    <input type="text" class="form-control" name="password" id="password">
+                    <input type="submit" class="btn btn-success form-control mt-4" value="ล็อคอิน">
+                </form>
             </div>
         </div>
-
-        <!--New Patient-->
-        <div class="container">
-
-
-        </div>
-
-
-
-
-
-        <script src="../node_modules/jquery/dist/jquery.min.js"> </script>
-        <script src="../css/fontawesome/js/all.min.js"></script>
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    </div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"> </script>
+    <script src="../css/fontawesome/js/all.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $('#login').submit(function(e) {
+            e.preventDefault()
+            username = $('#username').val()
+            password = $('#password').val()
+            $('#status').load("validate.php", {
+                username: username,
+                password: password
+            })
+        })
+    </script>
 </body>
 
 </html>

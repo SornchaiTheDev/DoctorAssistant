@@ -8,7 +8,7 @@ if (isset($_POST['id_card'])) {
         $home = $_POST['home'];
         $tel = $_POST['phone'];
         $birthday = $_POST['birthday'];
-        $photo = "db/user_pic/normal_user.png";
+        
 
         //Date
         $date = date("Y-m-d");
@@ -18,7 +18,12 @@ if (isset($_POST['id_card'])) {
             //Upload Profile Pic 
             $des = "../../db/user_pic/";
             move_uploaded_file($_FILES['pic']['tmp_name'], $des . $_FILES['pic']['name']);
-            $profile_pic = "db/user_pic/" . $_FILES['pic']['name'];
+            if(isset($_FILES['pic'])){
+                $profile_pic = "db/user_pic/" . $_FILES['pic']['name'];
+            }else{
+                $profile_pic = "db/user_pic/normal_user.png";
+            }
+            
             $conn->query("INSERT INTO Users (user_name,profile_img,qr_id,id_card,birthday,creation) VALUES ('$username','$profile_pic','$qr_id','$id_card','$birthday','$date')");
             $conn->query("INSERT INTO info (home,telephone,qr_id) VALUES ('$home','$tel','$qr_id')");
 
@@ -56,25 +61,25 @@ if (isset($_POST['error'])) {
 
 </head>
 
-<body style="background : url('../../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
+<body style="background : url('../../asset/bg.png');">
 
-    <div class="container jumbotron shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.2);">
+    <div class="container jumbotron shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.9);">
 
-        <button class="btn btn-primary" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
-        <h1 class="text-center mt-4 text-white">ลงทะเบียนผู้ป่วยใหม่</h1>
+        <button class="btn btn-primary" onclick="window.location.href='../home.php'"><i class="fas fa-arrow-left"></i></button>
+        <h1 class="text-center mt-4 text-dark">ลงทะเบียนผู้ป่วยใหม่</h1>
         <div id="status"><?php echo $status; ?></div>
 
         <form id="register" method="POST" class="form-group d-flex flex-column" enctype="multipart/form-data">
             <label for="name" class="mt-2">ชื่อผู้ป่วย</label>
-            <input type="text" class="form-control mt-2" style="border : 2px transparent; border-radius : 50px;" name="name" id="name" placeholder="กรอกชื่อผู้ป่วย" required>
+            <input type="text" class="form-control mt-2" style="border : 2px solid; border-radius : 50px;" name="name" id="name" placeholder="กรอกชื่อผู้ป่วย" required>
             <label for="name" class="mt-2">เลขประจำตัวประชาชน</label>
-            <input type="text" class="form-control mt-2" style="border : 2px transparent; border-radius : 50px;" name="id_card" id="idcard" placeholder="กรอกบัตรประชาชน" required>
+            <input type="text" class="form-control mt-2" style="border : 2px solid; border-radius : 50px;" name="id_card" id="idcard" placeholder="กรอกบัตรประชาชน" required>
             <label for="name" class="mt-2">วันเกิด</label>
-            <input type="date" class="form-control mt-2" style="border : 2px transparent; border-radius : 50px;" name="birthday" id="birthday" placeholder="กรอกวันเกิด" required>
+            <input type="date" class="form-control mt-2" style="border : 2px solid; border-radius : 50px;" name="birthday" id="birthday" placeholder="กรอกวันเกิด" required>
             <label for="name" class="mt-2">ที่อยู่ผู้ป่วย</label>
-            <textarea row="3" class="form-control mt-2" name="home" id="home" placeholder="กรอกที่อยู่" required></textarea>
+            <textarea row="3" class="form-control mt-2 border-dark" name="home" id="home" placeholder="กรอกที่อยู่" required></textarea>
             <label for="tel" class="mt-2">เบอร์โทรผู้ป่วย</label>
-            <input type="text" class="mt-2 form-control" style="border : 2px transparent; border-radius : 50px;" name="phone" id="tel" placeholder="กรอกเบอร์โทร" required>
+            <input type="text" class="mt-2 form-control" style="border : 2px solid; border-radius : 50px;" name="phone" id="tel" placeholder="กรอกเบอร์โทร" required>
             <label for="photo" class="mt-2">รูปผู้ป่วย </label>
             <input type="file" name="pic" id="photo">
             <button type="submit" class="btn btn-success mt-5">ลงทะเบียน</button>

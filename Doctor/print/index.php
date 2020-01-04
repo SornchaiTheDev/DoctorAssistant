@@ -23,7 +23,7 @@ $info = $conn->query("SELECT * FROM info WHERE qr_id = " . $user['qr_id'] . "")-
 
 <body>
     <div class="container mt-3">
-    <button class="btn btn-primary mb-4 d-print-none" onclick="window.location.href='../'"><i class="fas fa-arrow-left"></i></button>
+    <button class="btn btn-primary mb-4 d-print-none" onclick="window.location.href='../history'"><i class="fas fa-arrow-left"></i></button>
         <div style="border : 10px solid">
             <div class="d-flex flex-row pt-3 pl-5">
                 <img src="../../<?php echo $user['profile_img']; ?>" class="mr-5" style="border : 2px transparent; border-radius : 100%" width="150" height="150" alt="">
