@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
     <script src="../../node_modules/jquery/dist/jquery.min.js"> </script>
+    <link rel="stylesheet" href="../../css/font.css">
 </head>
 
 <body style="background : url('../../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">

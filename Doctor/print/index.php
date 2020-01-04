@@ -17,6 +17,7 @@ $info = $conn->query("SELECT * FROM info WHERE qr_id = " . $user['qr_id'] . "")-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../css/font.css">
     <title>Document</title>
 </head>
 

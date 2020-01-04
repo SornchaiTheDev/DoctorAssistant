@@ -31,6 +31,7 @@ if (isset($_GET['qr'])) {
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font.css">
     <title>Doctor Assistant</title>
 </head>
 

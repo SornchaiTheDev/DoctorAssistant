@@ -51,6 +51,7 @@ if (isset($_POST['error'])) {
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="../../css/font.css">
     <title>DoctorAssistant</title>
 
 </head>

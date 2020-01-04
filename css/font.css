@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Supermarket';
+    src : url("../fonts/supermarket.ttf")
+}
+* {
+    font-family: 'Supermarket', sans-serif;
+    font-size: 18px;
+}

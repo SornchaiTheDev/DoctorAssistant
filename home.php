@@ -23,6 +23,7 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
     <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/font.css">
     <title>DoctorAssistant</title>
 </head>
 
