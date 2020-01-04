@@ -43,6 +43,7 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
 
 
         <!--NavBar-->
+        
         <div class="fixed-bottom bg-light shadow shadow-lg">
             <div class="container">
                 <div class="row">
@@ -98,17 +99,33 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
                     <input type="text" id="tel" class="form-control" value="0<?php echo $info['telephone'] ?>">
                     <label for="telephone" class="mt-1">ที่อยู่</label>
                     <input type="text" id="home" class="form-control" value="<?php echo $info['home'] ?>">
-                    <input id="submit" type="submit" class="btn btn-success mb-3 d-block mx-auto mt-2" value="บันทึกข้อมูล">
+                    <input id="submit" type="submit" class="btn btn-success mb-3 d-block mx-auto mt-2" value="แก้ไขข้อมูล">
                 </form>
             </div>
 
-            <button class="btn btn-primary">QRcode ของฉัน <i class="fas fa-qrcode"></i></button>
-            <button class="btn btn-secondary mt-2">สอบถามเพิ่มเติม</button>
+            <button class="btn btn-primary" id="qrcode_view">QRcode ของฉัน <i class="fas fa-qrcode"></i></button>
+            <button class="btn btn-secondary mt-2" onclick="alert('กำลังพัฒนา')">สอบถามเพิ่มเติม</button>
             <button class="btn btn-danger mt-2" id="logout">ออกจากระบบ</button>
 
         </div>
     </div>
 
+
+    <!--QrCode View-->
+    <div class="container-fluid mt-3" id="qrcode" style="display : none">
+        <div>
+            <button id="qr_close" class="btn btn-dark d-block ml-auto" style="border : 2px solid transparent; border-radius : 100px;">&times</button>
+        </div>
+        <div class="container mt-5 pt-5">
+
+            <div style="margin-left : 7vw;" id="my_qrcode"></div>
+            <div class="shadow shadow-sm " style="border : 2px transparent; border-radius : 50px;">
+                <h4 class="text-center mt-5 p-2" style="font-size : 30px;"><?php echo $fetch['user_name'] ?></h4>
+            </div>
+        </div>
+
+    </div>
+    </div>
 
 
 
@@ -118,12 +135,21 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
     <script src="css/fontawesome/js/all.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="js/qrcode.js"></script>
     <script src="js/main.js"></script>
 
     <script>
         /*Notification */
         $(document).ready(function() {
             reload();
+            var qrcode = new QRCode("my_qrcode", {
+                text: "<?php echo "https://192.168.1.13/DoctorAssistant?qr=" . $fetch['qr_id'] ?>",
+                width: 250,
+                height: 250,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
         });
 
         function reload() {
@@ -136,6 +162,16 @@ $max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM notification"));
 
 
         }
+
+        $('#qrcode_view').click(function() {
+            $('#qrcode').show()
+            $('#profile-page').hide()
+        })
+        $('#qr_close').click(function() {
+            $('#qrcode').hide()
+            $('#profile-page').show()
+
+        })
     </script>
 </body>
 

@@ -12,7 +12,7 @@
     //$fetch = $conn->query("SELECT * FROM Users");
     $fetch = $conn->query("SELECT * FROM users ORDER BY id ASC LIMIT $start , 3");
     $id = 'A';
-
+    $print = 'AA';
     while ($row = mysqli_fetch_array($fetch)) {
 
         echo " <div class='card mt-5  shadow shadow-lg' style='width : 50rem ; height : 10rem'>
@@ -23,6 +23,7 @@
                 <h4>" . $row['user_name'] . "</h4>
                 <h5>ประเภทผู้ป่วย : ทั่วไป</h5>
                 <button class='btn btn-warning' id='" . $id . "'>เข้าสู่โปรไฟล์</button>
+                <button class='btn btn-primary' id='" . $print . "'>ปริ้นท์บัตรประจำตัว <i class='fas fa-print'></i></button>
             </div>
 
         </div>
@@ -32,9 +33,13 @@
 $('#" . $id . "').click(function(){
     window.location.href = 'detail.php?qr=" . $row['qr_id'] . "'
 })
+$('#" . $print . "').click(function(){
+    window.location.href = '../print/index.php?idcard=".$row['id_card']."'
+})
 </script>
 ";
         $id++;
+        $print++;
     }
     ?>
 
