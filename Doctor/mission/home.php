@@ -42,6 +42,8 @@ $pill = $conn->query("SELECT * FROM pill");
                     }
                     ?>
                 </select>
+                <label for="date" class="mt-2">วันหมอนัดครั้งต่อไป</label>
+                <input class="form-control mt-2" type="date" name="date" id="meet">
                 <div class="d-flex flex-column mt-3">
                     <input type="submit" class="btn btn-success" value="ส่งข้อมูล">
                 </div>
@@ -58,16 +60,27 @@ $pill = $conn->query("SELECT * FROM pill");
             e.preventDefault()
             symptome = $('#symptome').val()
             pill = $('#pill').val()
+            meet = $('#meet').val()
             $.ajax({
                 url: "send.php",
                 method: "POST",
                 data: {
                     symp: symptome,
                     pill: pill,
-                    id: <?php echo $result['qr_id'] ?>
+                    id: <?php echo $result['qr_id']; ?>,
+                    meet : meet
                 },
                 success: function(s) {
-                    
+                    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'บันทึกข้อมูลสำเร็จ',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      setTimeout(() => {
+          location.reload()
+      }, 1500);
                 }
             })
         });
