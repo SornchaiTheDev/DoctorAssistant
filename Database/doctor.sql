@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2020 at 05:52 PM
+-- Generation Time: Jan 05, 2020 at 01:08 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.32
 
@@ -61,7 +61,7 @@ CREATE TABLE `info` (
 --
 
 INSERT INTO `info` (`id`, `home`, `telephone`, `symptome`, `qr_id`) VALUES
-(2, 'ถังขยะ', 887614130, 'ไอเล็กน้อย ตัวอุ่นๆ อาการปกติดี', 990627106),
+(2, 'โลก', 887614130, 'ไอเล็กน้อย ตัวอุ่นๆ อาการปกติดี', 990627106),
 (3, 'Earth', 817884212, '', 2114703845),
 (4, 'Earth', 2147483647, '', 953535137),
 (5, '435', 4364, '', 79704070),
@@ -97,7 +97,8 @@ INSERT INTO `info` (`id`, `home`, `telephone`, `symptome`, `qr_id`) VALUES
 (35, '351351351', 531351, '', 2027258799),
 (36, '131131', 13113131, '', 2024667429),
 (37, '6853465', 2147483647, '', 1464037143),
-(38, '131113', 1313, '', 9531091);
+(38, '131113', 1313, '', 9531091),
+(39, '1222323', 2147483647, '', 1014966402);
 
 -- --------------------------------------------------------
 
@@ -142,20 +143,16 @@ CREATE TABLE `maps` (
 
 CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
-  `qr_id` bigint(20) NOT NULL,
   `notification` text NOT NULL,
-  `date` date NOT NULL
+  `qr_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notification`
 --
 
-INSERT INTO `notification` (`id`, `qr_id`, `notification`, `date`) VALUES
-(1, 123456789, 'asdsadsad', '2019-12-16'),
-(2, 1234567890, 'asdasdsad', '2019-12-16'),
-(3, 123456789, 'sadfsdfsgdsg', '2019-12-16'),
-(4, 1030910921, 'asdasdsad', '2019-12-16');
+INSERT INTO `notification` (`id`, `notification`, `qr_id`) VALUES
+(1, '2020-01-05', 990627106);
 
 -- --------------------------------------------------------
 
@@ -176,8 +173,19 @@ CREATE TABLE `pill` (
 --
 
 INSERT INTO `pill` (`id`, `pill_name`, `detail`, `time`, `pill_id`) VALUES
-(1, 'test1', 'test', 'test', 370451911),
-(2, 'มดแดง', 'test', 'test', 324577164);
+(1, 'พาราเซตตามอล', 'แก้ไข้', 'ทุก5ชั่วโมง', 370451911),
+(2, 'มดแดง', 'test', 'test', 324577164),
+(3, 'เมนทอส', 'อร่อย หวาน มัน ', 'ทุกครั้งเมื่อมีอาการ', 1768377009),
+(4, 'test', 'อร่อยมาก ที่จอดรถกว้าง', 'เย็นๆ', 267506853),
+(5, 't', 't', 't', 43018055),
+(6, 's', 's', 's', 1510068481),
+(7, 'test', 'test', 'test', 222777074),
+(8, 'asfsa', 'sadsad', 'asdsa', 1552984518),
+(9, 'asdasdsd', 'sadas', 'dasdsa', 34880925),
+(10, 'adsfdsg', 'sadassdgdsgdsg', 'dasdsa', 521649089),
+(11, 'adsfdsgd', 'sadassdgdsgdsg', 'dasdsa', 1515466129),
+(12, 'asd', 'asdasd', 'asdsa', 1071095511),
+(13, 'asd', 'asdasd', 'sasad', 577390762);
 
 -- --------------------------------------------------------
 
@@ -235,7 +243,8 @@ INSERT INTO `users` (`id`, `user_name`, `profile_img`, `qr_id`, `id_card`, `birt
 (35, '2021321', 'db/user_pic/normal_user.png', 2027258799, 1231231321313135, '2510-12-05', '2020-01-04'),
 (36, 'asdas', 'db/user_pic/normal_user.png', 2024667429, 131534315464, '0000-00-00', '2020-01-04'),
 (37, '651515', 'db/user_pic/', 1464037143, 5515, '6222-02-22', '2020-01-04'),
-(38, '16513546565', 'db/user_pic/Beautiful-beach-sea-waves-foam-top-view_2880x1800.jpg', 9531091, 4156741, '0000-00-00', '2020-01-04');
+(38, '16513546565', 'db/user_pic/Beautiful-beach-sea-waves-foam-top-view_2880x1800.jpg', 9531091, 4156741, '0000-00-00', '2020-01-04'),
+(39, 'test', 'db/user_pic/Beautiful-beach-sea-waves-foam-top-view_2880x1800.jpg', 1014966402, 1839901546656, '2019-02-12', '2020-01-05');
 
 -- --------------------------------------------------------
 
@@ -247,6 +256,7 @@ CREATE TABLE `user_pill` (
   `id` int(11) NOT NULL,
   `symptome` text NOT NULL,
   `pill` text NOT NULL,
+  `date` date NOT NULL,
   `qr_id` bigint(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -254,8 +264,9 @@ CREATE TABLE `user_pill` (
 -- Dumping data for table `user_pill`
 --
 
-INSERT INTO `user_pill` (`id`, `symptome`, `pill`, `qr_id`) VALUES
-(1, 'yyyy', 'test1,มดแดง', 990627106);
+INSERT INTO `user_pill` (`id`, `symptome`, `pill`, `date`, `qr_id`) VALUES
+(1, 'asd', 'พาราเซตตามอล,มดแดง,เมนทอส,test', '2020-01-05', 990627106),
+(2, 'หล่อเกินคนปกติ', 'พาราเซตตามอล', '2020-01-30', 953535137);
 
 --
 -- Indexes for dumped tables
@@ -323,7 +334,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `info`
 --
 ALTER TABLE `info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `map`
@@ -341,25 +352,25 @@ ALTER TABLE `maps`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pill`
 --
 ALTER TABLE `pill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `user_pill`
 --
 ALTER TABLE `user_pill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
