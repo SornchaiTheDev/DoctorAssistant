@@ -11,7 +11,7 @@ $i = 1;
 while ($row = mysqli_fetch_array($map)) {
     echo '
    
-        <div class="card mb-3" style="width: 20rem;">
+        <div class="card mb-3" style="width: 18rem;">
         <div class="card-body">
             <div class="d-flex flex-column">
                 <h5 class="card-title">' . $row["shop_name"] . '</h5>

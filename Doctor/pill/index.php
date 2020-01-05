@@ -22,8 +22,8 @@ $max_pill = $conn->query("SELECT count(id) FROM pill")->fetch_array();
 
 <body style="background : url(../../asset/bg.png)">
     <!--Navbar-->
-    <div class="container mt-2 border rounded bg-light shadow ">
-        <nav class="navbar navbar-expand-lg navbar-light m-2">
+    <div class="container mt-2 border rounded bg-white shadow ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white m-2">
             <a class="navbar-brand" href="#">DoctorAssistant</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@ $max_pill = $conn->query("SELECT count(id) FROM pill")->fetch_array();
         <!--End Navbar-->
         <hr>
         <button class="btn btn-primary mb-4 d-print-none" onclick="window.location.href='../home.php'"><i class="fas fa-arrow-left"></i></button>
-        <div class="bg-light">
+        <div class="bg-white">
             <h2 class="text-warning" id="count"></h2>
             <button class="btn btn-success" onclick='$("#addpill").modal("show")'>เพิ่มยา</button>
 
@@ -91,17 +91,9 @@ $max_pill = $conn->query("SELECT count(id) FROM pill")->fetch_array();
             $('#pills').load("pill.php")
             $('#count').load("count.php")
             $('#pagination').load("pagination.php")
-            reload()
+
         })
 
-        function reload() {
-            setTimeout(() => {
-                // $('#pills').load("pill.php")
-                $('#count').load("count.php")
-                $('#pagination').load("pagination.php")
-                reload()
-            }, 1000);
-        }
         $('#search').submit(function(e) {
             e.preventDefault()
             search = $('#val').val()

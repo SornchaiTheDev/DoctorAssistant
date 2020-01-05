@@ -1,5 +1,4 @@
 <?php
-
 require "connect.php";
 
 $id_card = $_POST['id_card'];

@@ -13,6 +13,9 @@ if($check[0] != ''){
     
     
     echo "<script>
+    $('#pills').load('pill.php')
+    $('#count').load('count.php')
+    $('#pagination').load('pagination.php')
     Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -20,6 +23,7 @@ if($check[0] != ''){
         showConfirmButton: false,
         timer: 1500
       })
+      $('#addpill').modal('hide')
     </script>";
 }
 

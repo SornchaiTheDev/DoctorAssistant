@@ -4,21 +4,22 @@ session_start();
 $qr = $_SESSION['qr'];
 require "connect.php";
 
-$pill = $conn->query("SELECT * FROM pill WHERE qr_id = $qr");
-$max = mysqli_fetch_array($conn->query("SELECT MAX(id) FROM pill WHERE qr_id = $qr"));
+$user_pill = $conn->query("SELECT * FROM user_pill WHERE qr_id = $qr")->fetch_assoc();
+$pill_name = explode(",", $user_pill['pill']);
+$pill_count  = count($pill_name);
+$count = 0;
 $info = 'A';
 $time = 'AA';
-
-while ($row = mysqli_fetch_array($pill)) {
-
-    echo '
-   
-        <div class="card mb-3" style="width: 20rem;">
+while ($count < $pill_count) {
+    $pill = $conn->query("SELECT * FROM pill WHERE pill_name = '$pill_name[$count]'")->fetch_assoc();
+        echo '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+        <div class="card mb-3" style="width: 18rem;">
         <img src="asset/med_icon.png" class="img-fluid">
         <div class="card-body">
             <div class="d-flex flex-column">
-                <h5 class="card-title">' . $row['pill_name'] . '</h5>
-                <p class="card-text" id="detail"></p>
+                <h5 class="card-title">' . $pill['pill_name'] . '</h5>
+                <p class="card-text" id="detail' . $count . '"></p>
                 <div class="d-flex flex-row">
                 <button class="btn btn-success ml-3" style="
                 border: 2px solid transparent; 
@@ -41,15 +42,15 @@ while ($row = mysqli_fetch_array($pill)) {
         </div>
     </div>
     <script>
-    var time = "' . $time . '"
-    var detail = "' . $row['detail'] . '"
-    var thuc = "' . $row['detail'] . '".substr(0,60)
-    $("#detail").text("รายละเอียด : " + thuc + "...")
+    var time' . $count . ' = "' . $pill['time'] . '"
+    var detail' . $count . ' = "' . $pill['detail'] . '"
+    var thuc' . $count . ' = "' . $pill['detail'] . '".substr(0,60)
+    $("#detail' . $count . '").text("รายละเอียด : " + thuc' . $count . ' + "...")
 
     $("#' . $info . '").click(function(){
         Swal.fire({
             title: "รายละเอียด",
-            text: detail,
+            text: detail' . $count . ',
             icon: "info",
             confirmButtonText: "ปิด",
           })
@@ -58,24 +59,26 @@ while ($row = mysqli_fetch_array($pill)) {
     $("#' . $time . '").click(function(){
         Swal.fire({
             title: "วิธีการทาน",
-            text: "' . $row['time'] . '",
+            text: "' . $pill['time'] . '",
             icon: "info",
             confirmButtonText: "ปิด",
           })
     })
     </script>
     ';
+        if ($count + 1 == $pill_count) {
+            echo "<div style='margin-top : 20px; margin-bottom : 100px;'><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
+        }
+    
 
-    if ($row['id'] ==  $max[0]) {
-        echo "<div style='margin-top : 10px;'><p class='text-center'>ไม่มีผลลัพธ์เพิ่มเติม</p></div>";
+    
+    if ($pill_name[0] == '') {
+        echo " <div style='margin-top : 125px;margin-bottom : 100px; id='no''>
+        <p class='text-center'>ไม่พบยาของคุณ</p>
+        <i class='fas  d-block mx-auto' style='font-size : 250px'></i>
+        </div>";
     }
+    $count++;
     $info++;
     $time++;
-}
-
-if ($max[0] == '') {
-    echo " <div style='margin-top : 125px;margin-bottom : 100px; '>
-    <p class='text-center'>ไม่พบยาของคุณ</p>
-    <i class='fas  d-block mx-auto' style='font-size : 250px'></i>
-    </div>";
 }

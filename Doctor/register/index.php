@@ -58,15 +58,16 @@ if (isset($_POST['error'])) {
     <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../../css/font.css">
     <title>DoctorAssistant</title>
-
+    <style>
+    
+    </style>
 </head>
 
 <body style="background : url('../../asset/bg.png');">
 
-    <div class="container jumbotron shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.9);">
-
+    <div class="container jumbotron shadow shadow-lg mt-4" style="border : 2px transparent; border-radius : 50px; background-color : white;">
         <button class="btn btn-primary" onclick="window.location.href='../home.php'"><i class="fas fa-arrow-left"></i></button>
-        <h1 class="text-center mt-4 text-dark">ลงทะเบียนผู้ป่วยใหม่</h1>
+        <h1 class="text-center text-dark">ลงทะเบียนผู้ป่วยใหม่</h1>
         <div id="status"><?php echo $status; ?></div>
 
         <form id="register" method="POST" class="form-group d-flex flex-column" enctype="multipart/form-data">
@@ -82,14 +83,15 @@ if (isset($_POST['error'])) {
             <input type="text" class="mt-2 form-control" style="border : 2px solid; border-radius : 50px;" name="phone" id="tel" placeholder="กรอกเบอร์โทร" required>
             <label for="photo" class="mt-2">รูปผู้ป่วย </label>
             <input type="file" name="pic" id="photo">
-            <button type="submit" class="btn btn-success mt-5">ลงทะเบียน</button>
+            <button type="submit" class="btn btn-success mt-2">ลงทะเบียน</button>
+          
         </form>
-        <div class="container d-flex flex-column">
+        
        <?php if(isset($_POST['id_card'])){
-           echo '<button class="btn btn-warning" onclick="print()">พิมพ์บัตรผู้ป่วย</button>';
+           echo '<button class="btn btn-warning" onclick="printing()">พิมพ์บัตรผู้ป่วย</button>';
        }
        ?>
-    </div>
+    
     </div>
   
     <script src="../../node_modules/jquery/dist/jquery.min.js"> </script>
@@ -97,7 +99,7 @@ if (isset($_POST['error'])) {
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script>
-        function print() {
+        function printing() {
             window.location.href='../print/index.php?idcard=<?php echo  $id_card; ?>'
         }
     </script>

@@ -14,8 +14,8 @@
     $id = 'A';
     $print = 'AA';
     while ($row = mysqli_fetch_array($fetch)) {
-
-        echo " <div class='card mt-5  shadow shadow-lg' style='width : 50rem ; height : 10rem'>
+        
+        echo " <div class='card mt-5  shadow shadow-lg' style='width : 50rem ; height : 10rem; border : 2px transparent; border-radius : 70px;'>
     <div class='card-body'>
         <div class='d-flex flex-row'>
             <img src='../../" . $row['profile_img'] . "' class='img-fluid' style='border : 2px transparent; border-radius : 100%;' width='100' alt=''>

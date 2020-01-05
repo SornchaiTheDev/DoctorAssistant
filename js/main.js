@@ -44,7 +44,7 @@ $(document).ready(function () {
             confirmButtonText: 'ออกจากระบบ'
         }).then((result) => {
             if (result.value) {
-                window.location.href = "index.php"
+                window.location.href = "db/logout.php"
 
             }
         })

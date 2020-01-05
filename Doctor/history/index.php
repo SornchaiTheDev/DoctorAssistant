@@ -15,8 +15,8 @@
 
 <body style="background : url('../../asset/bg.png');">
 
-    <div class="container mt-5">
-        <div class="shadow shadow-lg" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.9);">
+    <div class="container mt-2">
+        <div class="shadow shadow-lg" style="border : 2px transparent; border-radius : 50px; background-color : white;">
             <button class="btn btn-primary mt-5 ml-4" onclick="window.location.href='../home.php'"><i class="fas fa-arrow-left"></i></button>
             <h3 class="text-center mt-4">รายชื่อผู้ป่วย</h3>
             <div class="d-flex flex-column">

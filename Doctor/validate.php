@@ -1,12 +1,13 @@
 <?php
+session_start();
 
 require "../db/connect.php";
-
 $user = $_POST['username'];
 $pwd = $_POST['password'];
 $result = $conn->query("SELECT * FROM admin WHERE username = '$user' AND password = '$pwd'")->fetch_assoc();
 
 if($result['username'] != ''){
+    $_SESSION['login'] = "login";
     echo "<p class='text-success'>กำลังเข้าสู่ระบบ!</p>";
     echo "<script>
         $('#loading').show()

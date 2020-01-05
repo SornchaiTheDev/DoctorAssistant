@@ -3,7 +3,7 @@
 require "../../db/connect.php";
 $qr = $_GET['qr'];
 $fetch = $conn->query("SELECT * FROM Users WHERE qr_id = '$qr'")->fetch_assoc();
-$pill = $conn->query("SELECT * FROM pill WHERE qr_id = '$qr'");
+$pill = $conn->query("SELECT * FROM user_pill WHERE qr_id = '$qr'")->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +19,9 @@ $pill = $conn->query("SELECT * FROM pill WHERE qr_id = '$qr'");
     <script src="../../node_modules/jquery/dist/jquery.min.js"> </script>
 </head>
 
-<body style="background : url('../../asset/bg.jpg'); background-repeat : no-repeat; background-size : cover;">
+<body style="background : url('../../asset/bg.png');">
     <div class="container">
-        <div class="shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.2);">
+        <div class="shadow shadow-lg mt-5" style="border : 2px transparent; border-radius : 50px; background-color : rgba(255,255,255,0.7);">
             <button class="btn btn-primary mt-5 ml-5" onclick="window.location.href='index.php'"><i class="fas fa-arrow-left"></i></button>
             <img src="../../<?php echo $fetch['profile_img']; ?>" width="200" class="d-block mx-auto" style='border : 2px transparent; border-radius : 100%;' alt="">
             <h4 class="text-center mt-5">ชื่อผู้ใช้ : <?php echo $fetch['user_name']; ?></h4>
@@ -38,12 +38,27 @@ $pill = $conn->query("SELECT * FROM pill WHERE qr_id = '$qr'");
                         <tr>
                             <?php
                             $i = 1;
-                            while ($row = mysqli_fetch_array($pill)) {
-                                echo '
-                            <tr><th scope="row">' . $i . '</th>
-                            <td>' . $row["pill_name"] . '</td></tr>';
-                                $i++;
+                            $count = 0;
+                            $pills = explode(",", $pill['pill']);
+                            $pill_count = count($pills);
+
+                            if ($pills[0] != '') {
+                                while ($count < $pill_count) {
+                                    $id = $count + 1;
+                                    echo '
+                                <tr>
+                                    <th scope="row">' . $id . '</th>
+                                    <td>' . $pills[$count] . '</td>
+                                </tr>';
+                                    $count++;
+                                }
+                            }else{
+                                echo '  <tr>
+                                <th scope="row">-</th>
+                                <td>ไม่พบยา</td>
+                            </tr>';
                             }
+
                             ?>
 
 
