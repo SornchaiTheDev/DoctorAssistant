@@ -1,12 +1,12 @@
 # Doctor Assistant
-Stacks :
+# Stacks 
  - HTML
  - CSS
  - Javascript (Jquery)
  - PHP
  - MYSQL
  
- Features :
+ # Features 
  - **ผู้ใช้**
 	 - รายการยาของผู้ป่วย วิธีการรับประทานและรายละเอียดของตัวยา
 	 - เมนูแผนที่เพื่อหาร้านยาใกล้เคียง
